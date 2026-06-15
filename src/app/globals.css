@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+:root {
+  --background: #f4f7fa;
+  --foreground: #0d1727;
+  --muted: #4b586c;
+  --line: #dbe4f0;
+  --accent: #2563eb;
+  --accent-strong: #1d4ed8;
+  --surface: #ffffff;
+  --surface-soft: #eaf1fa;
+}
+
+.dark {
+  --background: #040914;
+  --foreground: #f1f5fa;
+  --muted: #8ba1bd;
+  --line: #16243d;
+  --accent: #3b82f6;
+  --accent-strong: #60a5fa;
+  --surface: #0a1122;
+  --surface-soft: #121d36;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-surface: var(--surface);
+  --color-surface-soft: var(--surface-soft);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, sans-serif;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+::selection {
+  background: #3b82f640;
+  color: var(--foreground);
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  outline-offset: 3px;
+}
+
+/* Base grids & animations */
+.portfolio-grid {
+  background-image:
+    linear-gradient(to right, rgb(37 99 235 / 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(37 99 235 / 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(circle at center, black 65%, transparent 100%);
+}
+
+.dark .portfolio-grid {
+  background-image:
+    linear-gradient(to right, rgb(59 130 246 / 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(59 130 246 / 0.035) 1px, transparent 1px);
+}
+
+/* Premium Card Styles */
+.technical-card {
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--surface), var(--surface-soft));
+  box-shadow: 0 10px 30px -10px rgb(0 0 0 / 0.04);
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.dark .technical-card {
+  box-shadow: 0 10px 30px -10px rgb(0 0 0 / 0.45);
+}
+
+/* Glassmorphism Styles */
+.glass-panel {
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid color-mix(in srgb, var(--line) 40%, transparent);
+}
+
+.glass-header {
+  background: color-mix(in srgb, var(--background) 75%, transparent);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent);
+}
+
+.mono-label {
+  font-family: var(--font-mono), monospace;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
