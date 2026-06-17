@@ -41,6 +41,7 @@ body {
   font-family: var(--font-sans), Arial, sans-serif;
   text-rendering: optimizeLegibility;
   transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+  cursor: none;
 }
 
 ::selection {
@@ -71,6 +72,21 @@ button {
   background-image:
     linear-gradient(to right, rgb(59 130 246 / 0.035) 1px, transparent 1px),
     linear-gradient(to bottom, rgb(59 130 246 / 0.035) 1px, transparent 1px);
+}
+
+.hero-atmosphere {
+  background:
+    radial-gradient(circle at 20% 20%, rgb(37 99 235 / 0.18), transparent 30%),
+    radial-gradient(circle at 80% 18%, rgb(59 130 246 / 0.14), transparent 24%),
+    radial-gradient(circle at 50% 74%, rgb(37 99 235 / 0.08), transparent 28%);
+}
+
+.hero-code-marquee {
+  animation: hero-marquee 28s linear infinite;
+}
+
+.hero-caret {
+  animation: hero-caret 1s steps(1, end) infinite;
 }
 
 /* Premium Card Styles */
@@ -120,4 +136,26 @@ button {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--muted);
+}
+
+@keyframes hero-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes hero-caret {
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
 }

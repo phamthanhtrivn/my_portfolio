@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import { PortfolioIcon, getTechIconName } from "@/components/icon";
 import { Reveal } from "@/components/reveal";
 import { GlowingTracker } from "@/components/glowing-tracker";
@@ -10,7 +11,6 @@ import { DevTerminal } from "@/components/dev-terminal";
 import { useTheme } from "@/components/theme-provider";
 import {
   architectureHighlights,
-  metrics,
   profile,
   projects,
   skillGroups,
@@ -60,10 +60,12 @@ export default function Home() {
   const secondaryProjects = filteredProjects.filter((project) => !project.spotlight);
 
   return (
-    <main className="min-h-[100dvh] bg-background text-foreground transition-colors duration-300 relative">
+    <main className="min-h-dvh bg-background text-foreground transition-colors duration-300 relative">
       {/* Background patterns */}
       <div className="portfolio-grid fixed inset-0 -z-10 opacity-70 dark:opacity-40" />
       <GlowingTracker />
+      <FloatingThemeToggle />
+      <CustomCursor />
 
       <Header onOpenTerminal={() => setIsTerminalOpen(true)} />
       
@@ -140,8 +142,6 @@ export default function Home() {
 
 // Subcomponents
 function Header({ onOpenTerminal }: { onOpenTerminal: () => void }) {
-  const { theme, toggleTheme } = useTheme();
-
   return (
     <header className="sticky top-0 z-40 glass-header">
       <nav className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -177,16 +177,6 @@ function Header({ onOpenTerminal }: { onOpenTerminal: () => void }) {
             <PortfolioIcon name="backend" size={18} weight="bold" />
           </button>
 
-          {/* Theme switcher */}
-          <button
-            onClick={toggleTheme}
-            className="flex size-10 items-center justify-center rounded-lg border border-line bg-surface text-muted hover:bg-surface-soft hover:text-accent transition-all active:translate-y-px cursor-pointer"
-            title="Toggle Light/Dark Theme"
-            aria-label="Toggle theme mode"
-          >
-            <PortfolioIcon name={theme === "light" ? "moon" : "sun"} size={18} weight="bold" />
-          </button>
-
           {/* Connect actions */}
           <a
             href={profile.github}
@@ -204,85 +194,251 @@ function Header({ onOpenTerminal }: { onOpenTerminal: () => void }) {
 }
 
 function Hero() {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
-    <section id="top" className="mx-auto w-full max-w-7xl px-4 pb-20 pt-16 sm:px-6 lg:px-8 lg:pb-28 lg:pt-24">
-      <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
-        <Reveal className="max-w-4xl">
-          <p className="mono-label mb-5 inline-flex items-center gap-2 rounded-lg border border-line bg-surface px-3 py-1.5 text-xs font-bold text-accent shadow-sm">
-            <PortfolioIcon name="location" size={14} weight="bold" />
-            {profile.location} / {profile.role}
+    <section
+      id="top"
+      className="relative isolate mx-auto flex min-h-[calc(100dvh-4rem)] w-full max-w-7xl items-center overflow-hidden px-4 py-12 sm:px-6 lg:px-8 lg:py-16"
+    >
+      <HeroAtmosphere />
+
+      <div className="relative mx-auto flex w-full max-w-4xl flex-col items-center text-center">
+        <Reveal className="flex w-full flex-col items-center">
+          <AvatarOrb prefersReducedMotion={prefersReducedMotion} />
+
+          <p className="mt-6 text-sm font-semibold uppercase tracking-[0.28em] text-muted">
+            {profile.displayName} | {profile.role}
           </p>
-          <h1 className="max-w-4xl text-5xl font-extrabold leading-[1.08] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
-            Designing secure backend APIs & full-stack applications.
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg leading-8 text-muted sm:text-xl font-medium">
+
+          <TypingHeadline prefersReducedMotion={prefersReducedMotion} />
+
+          <p className="mt-5 max-w-2xl text-base leading-7 text-muted sm:text-lg">
             {profile.headline}
           </p>
-          
+
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
               href="#projects"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-accent px-6 text-sm font-bold text-white transition hover:opacity-90 active:translate-y-px shadow-lg shadow-accent/20 cursor-pointer"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-accent px-6 text-sm font-bold text-white transition duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-px hover:shadow-lg hover:shadow-accent/20 active:translate-y-px cursor-pointer"
             >
-              Explore Work
+              Explore My Work
               <PortfolioIcon name="arrow" size={16} weight="bold" />
             </a>
             <a
               href={`mailto:${profile.email}`}
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-line bg-surface px-6 text-sm font-semibold text-foreground transition hover:border-accent hover:text-accent active:translate-y-px cursor-pointer"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-full border border-line bg-surface px-6 text-sm font-semibold text-foreground transition duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-px hover:border-accent hover:text-accent active:translate-y-px cursor-pointer"
             >
+              Get in Touch
               <PortfolioIcon name="email" size={18} weight="bold" />
-              Email Me
             </a>
-            <a
-              href={profile.linkedin}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-line bg-surface px-6 text-sm font-semibold text-foreground transition hover:border-accent hover:text-accent active:translate-y-px cursor-pointer"
-            >
-              <PortfolioIcon name="linkedin" size={18} weight="bold" />
-              LinkedIn
-            </a>
-          </div>
-        </Reveal>
-
-        {/* Profile Card */}
-        <Reveal delay={0.1} className="technical-card rounded-2xl p-5">
-          <div className="rounded-xl border border-line bg-surface-soft/50 p-4">
-            <div className="flex items-center gap-4">
-              <Image
-                src="https://github.com/phamthanhtrivn.png"
-                alt="Profile Avatar"
-                width={72}
-                height={72}
-                priority
-                className="rounded-xl border border-line bg-surface shadow-sm"
-              />
-              <div>
-                <p className="text-xl font-bold tracking-tight">{profile.displayName}</p>
-                <p className="mt-1 text-sm text-muted leading-relaxed">{profile.availability}</p>
-              </div>
-            </div>
-            
-            {/* Quick Metrics */}
-            <div className="mt-5 grid grid-cols-3 gap-2.5">
-              {metrics.map((metric) => (
-                <div key={metric.label} className="rounded-xl border border-line bg-surface p-3 text-center">
-                  <p className="text-xl font-bold text-accent">{metric.value}</p>
-                  <p className="mt-1 text-[10px] leading-4 text-muted uppercase tracking-wider font-bold">{metric.label}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="mt-4 rounded-xl border border-line bg-foreground p-5 text-background dark:bg-surface dark:text-foreground">
-            <p className="mono-label text-[10px] text-muted dark:text-accent uppercase tracking-wider font-bold">current goal</p>
-            <p className="mt-2 text-base font-bold leading-7">
-              Translating complex business issues into neat service architectures, optimizing cache behaviors, and automating operations.
-            </p>
           </div>
         </Reveal>
       </div>
     </section>
+  );
+}
+
+function TypingHeadline({ prefersReducedMotion }: { prefersReducedMotion: boolean | null }) {
+  const headline = "Crafting Scalable and User-Centric Web Solutions";
+  const [typedHeadline, setTypedHeadline] = useState(() => (prefersReducedMotion ? headline : ""));
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      return;
+    }
+
+    let index = 0;
+
+    const intervalId = window.setInterval(() => {
+      index += 1;
+      setTypedHeadline(headline.slice(0, index));
+
+      if (index >= headline.length) {
+        window.clearInterval(intervalId);
+      }
+    }, 36);
+
+    return () => window.clearInterval(intervalId);
+  }, [headline, prefersReducedMotion]);
+
+  return (
+    <h1 className="mt-4 max-w-4xl text-4xl font-extrabold leading-[1.03] tracking-tight text-foreground sm:text-5xl lg:text-6xl">
+      <span>{typedHeadline}</span>
+      <span
+        aria-hidden="true"
+        className={`ml-1 inline-block h-[1.05em] w-0.5 translate-y-1 bg-accent align-middle ${
+          prefersReducedMotion || typedHeadline.length === headline.length ? "opacity-0" : "hero-caret"
+        }`}
+      />
+    </h1>
+  );
+}
+
+function AvatarOrb({ prefersReducedMotion }: { prefersReducedMotion: boolean | null }) {
+  return (
+    <motion.div
+      className="group relative mx-auto w-fit"
+      whileHover={prefersReducedMotion ? undefined : { y: -6, rotate: 1.2, scale: 1.02 }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] as const }}
+    >
+      <div className="absolute -inset-5.5 rounded-4xl bg-accent/10 blur-2xl transition-opacity duration-500 group-hover:opacity-100" />
+      <div className="relative rounded-4xl border border-line bg-surface/85 p-3 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.4)] backdrop-blur-sm dark:shadow-[0_35px_90px_-50px_rgba(0,0,0,0.75)]">
+        <div className="absolute inset-2.5 rounded-[1.55rem] bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.2),transparent_40%),linear-gradient(180deg,rgba(37,99,235,0.12),transparent_60%)] opacity-70" />
+        <Image
+          src="https://github.com/phamthanhtrivn.png"
+          alt="Pham Thanh Tri portrait avatar"
+          width={220}
+          height={220}
+          priority
+          className="relative size-44 rounded-[1.45rem] border border-line object-cover shadow-sm sm:size-52"
+        />
+        <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 rounded-full border border-line bg-background/90 px-3 py-1 text-[11px] font-semibold text-muted shadow-sm backdrop-blur-md">
+          Motion-ready profile
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+function HeroAtmosphere() {
+  const nodeTransition = {
+    duration: 5.8,
+    repeat: Number.POSITIVE_INFINITY,
+    repeatType: "mirror" as const,
+    ease: [0.22, 1, 0.36, 1] as const,
+  };
+
+  return (
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+      <div className="hero-atmosphere absolute inset-0 opacity-80 dark:opacity-100" />
+
+      <svg className="absolute inset-0 h-full w-full opacity-60 dark:opacity-70" viewBox="0 0 1200 720" preserveAspectRatio="none">
+        <g fill="none" stroke="currentColor" strokeLinecap="round">
+          <motion.path
+            d="M260 200 C380 110, 520 120, 620 220 S830 360, 940 250"
+            className="text-accent/35"
+            strokeWidth="1.2"
+            strokeDasharray="6 10"
+            animate={{ pathLength: [0.7, 1], opacity: [0.35, 0.7, 0.35] }}
+            transition={nodeTransition}
+          />
+          <motion.path
+            d="M280 470 C420 400, 540 390, 700 460 S890 560, 1040 430"
+            className="text-accent/20"
+            strokeWidth="1"
+            strokeDasharray="3 12"
+            animate={{ pathLength: [0.65, 1], opacity: [0.18, 0.45, 0.18] }}
+            transition={{ ...nodeTransition, duration: 7.5 }}
+          />
+        </g>
+      </svg>
+
+      <motion.span
+        className="absolute left-[18%] top-[23%] size-3 rounded-full bg-accent shadow-[0_0_22px_rgba(37,99,235,0.55)]"
+        animate={{ y: [0, 12, 0], scale: [1, 1.12, 1] }}
+        transition={{ duration: 5.5, repeat: Number.POSITIVE_INFINITY, ease: [0.22, 1, 0.36, 1] }}
+      />
+      <motion.span
+        className="absolute left-[73%] top-[28%] size-2.5 rounded-full bg-accent/80 shadow-[0_0_18px_rgba(37,99,235,0.4)]"
+        animate={{ y: [0, -10, 0], x: [0, 8, 0] }}
+        transition={{ duration: 6.8, repeat: Number.POSITIVE_INFINITY, ease: [0.22, 1, 0.36, 1] }}
+      />
+      <motion.span
+        className="absolute left-[26%] top-[66%] size-2 rounded-full bg-accent/60 shadow-[0_0_14px_rgba(37,99,235,0.35)]"
+        animate={{ y: [0, -8, 0], scale: [1, 0.9, 1] }}
+        transition={{ duration: 7.2, repeat: Number.POSITIVE_INFINITY, ease: [0.22, 1, 0.36, 1] }}
+      />
+
+      <div className="absolute left-[21%] top-[24.5%] h-px w-[22%] rotate-18 bg-linear-to-r from-transparent via-accent/35 to-transparent" />
+      <div className="absolute left-[59%] top-[31%] h-px w-[18%] rotate-[-22deg] bg-linear-to-r from-transparent via-accent/30 to-transparent" />
+      <div className="absolute left-[29%] top-[63%] h-px w-[29%] rotate-9 bg-linear-to-r from-transparent via-accent/20 to-transparent" />
+
+      <div className="absolute inset-x-0 bottom-7 overflow-hidden mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+        <div className="hero-code-marquee flex w-max items-center gap-12 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.34em] text-muted/60">
+          <span>react / next.js / spring boot / websocket / ci-cd / deployment</span>
+          <span>scalable systems / user-centric flows / realtime operations / api design</span>
+          <span>react / next.js / spring boot / websocket / ci-cd / deployment</span>
+          <span>scalable systems / user-centric flows / realtime operations / api design</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FloatingThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+
+  return (
+    <button
+      onClick={toggleTheme}
+      className="fixed right-4 top-4 z-40 inline-flex items-center gap-2 rounded-full border border-line bg-surface/90 px-4 py-2 text-xs font-semibold text-foreground shadow-lg shadow-black/5 backdrop-blur-md transition duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-px hover:border-accent/60 hover:text-accent active:translate-y-px"
+      title="Toggle light and dark mode"
+      aria-label="Toggle light and dark mode"
+    >
+      <span className="grid size-6 place-items-center rounded-full bg-accent/10 text-accent">
+        <PortfolioIcon name={theme === "light" ? "moon" : "sun"} size={13} weight="bold" />
+      </span>
+      <span className="hidden sm:inline">{theme === "light" ? "Dark mode" : "Light mode"}</span>
+    </button>
+  );
+}
+
+function CustomCursor() {
+  const prefersReducedMotion = useReducedMotion();
+  const cursorX = useMotionValue(0);
+  const cursorY = useMotionValue(0);
+  const smoothX = useSpring(cursorX, { stiffness: 420, damping: 34, mass: 0.22 });
+  const smoothY = useSpring(cursorY, { stiffness: 420, damping: 34, mass: 0.22 });
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+
+    const isFinePointer = window.matchMedia("(pointer: fine)").matches;
+    if (!isFinePointer) return;
+
+    const setInitialPosition = () => {
+      cursorX.set(window.innerWidth / 2);
+      cursorY.set(window.innerHeight / 2);
+      setIsVisible(true);
+    };
+
+    const handleMove = (event: MouseEvent) => {
+      cursorX.set(event.clientX);
+      cursorY.set(event.clientY);
+      setIsVisible(true);
+    };
+
+    const handleLeave = () => setIsVisible(false);
+    const handleEnter = () => setIsVisible(true);
+
+    setInitialPosition();
+    window.addEventListener("mousemove", handleMove);
+    window.addEventListener("mouseleave", handleLeave);
+    window.addEventListener("mouseenter", handleEnter);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("mouseleave", handleLeave);
+      window.removeEventListener("mouseenter", handleEnter);
+    };
+  }, [cursorX, cursorY, prefersReducedMotion]);
+
+  if (prefersReducedMotion) {
+    return null;
+  }
+
+  return (
+    <motion.div
+      className="pointer-events-none fixed left-0 top-0 z-30 hidden lg:block"
+      style={{ x: smoothX, y: smoothY, opacity: isVisible ? 1 : 0 }}
+      transition={{ type: "spring", stiffness: 420, damping: 34, mass: 0.22 }}
+    >
+      <div className="rounded-full border border-accent/35 bg-accent/10 p-4 shadow-[0_0_40px_rgba(37,99,235,0.16)] backdrop-blur-sm">
+        <div className="size-2 rounded-full bg-accent" />
+      </div>
+    </motion.div>
   );
 }
 
@@ -384,7 +540,7 @@ function Resume() {
               {experience.map((item, idx) => (
                 <div key={idx} className="relative">
                   {/* Timeline point */}
-                  <span className="absolute -left-[31px] top-1.5 grid size-4 place-items-center rounded-full bg-background border-2 border-accent" />
+                  <span className="absolute -left-7.75 top-1.5 grid size-4 place-items-center rounded-full bg-background border-2 border-accent" />
                   
                   <span className="mono-label text-xs font-bold text-accent bg-accent/10 px-2.5 py-1 rounded-md">
                     {item.period}
@@ -409,7 +565,7 @@ function Resume() {
               {education.map((item, idx) => (
                 <div key={idx} className="relative">
                   {/* Timeline point */}
-                  <span className="absolute -left-[31px] top-1.5 grid size-4 place-items-center rounded-full bg-background border-2 border-accent" />
+                  <span className="absolute -left-7.75 top-1.5 grid size-4 place-items-center rounded-full bg-background border-2 border-accent" />
                   
                   <span className="mono-label text-xs font-bold text-accent bg-accent/10 px-2.5 py-1 rounded-md">
                     {item.period}
