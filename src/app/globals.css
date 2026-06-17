@@ -41,7 +41,6 @@ body {
   font-family: var(--font-sans), Arial, sans-serif;
   text-rendering: optimizeLegibility;
   transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
-  cursor: none;
 }
 
 ::selection {

@@ -8,7 +8,11 @@ const nextConfig: NextConfig = {
         hostname: "github.com",
         pathname: "/phamthanhtrivn.png",
       },
-    ],
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+      },
+    ]
   },
 };
 

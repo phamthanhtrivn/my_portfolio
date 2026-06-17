@@ -58,12 +58,6 @@ export const profile = {
   ],
 };
 
-export const metrics = [
-  { value: "17+", label: "Public Repositories" },
-  { value: "7", label: "Product Builds" },
-  { value: "3+", label: "Delivery Surfaces" },
-];
-
 export const skillGroups: SkillGroup[] = [
   {
     title: "Backend Development",

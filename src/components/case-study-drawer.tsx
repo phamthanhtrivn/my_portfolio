@@ -17,7 +17,6 @@ export function CaseStudyDrawer({ project, onClose }: CaseStudyDrawerProps) {
   useEffect(() => {
     if (project) {
       document.body.style.overflow = "hidden";
-      setActiveTab("overview"); // reset tab
     } else {
       document.body.style.overflow = "unset";
     }
