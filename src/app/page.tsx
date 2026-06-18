@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CaseStudyDrawer } from "@/components/case-study-drawer";
 import { DevTerminal } from "@/components/dev-terminal";
 import { Header } from "@/components/home/header";
@@ -13,16 +13,28 @@ import type { Project } from "@/lib/portfolio-data";
 
 const navItems = [
   { label: "Home", href: "#top" },
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
+  { label: "About Me", href: "#about" },
   { label: "Tech Stack", href: "#techstack" },
-  { label: "Resume", href: "#resume" },
+  { label: "Featured Projects", href: "#projects" },
   { label: "Contact", href: "#contact" },
 ];
 
 export default function Home() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isTerminalOpen, setIsTerminalOpen] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 500);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <main className="min-h-dvh bg-background text-foreground transition-colors duration-300 relative">
@@ -31,9 +43,9 @@ export default function Home() {
       <Header navItems={navItems} onOpenTerminal={() => setIsTerminalOpen(true)} />
 
       <Hero />
-      <FeaturedProjects onSelectProject={setSelectedProject} />
-      <TechStack />
       <AboutSection />
+      <TechStack />
+      <FeaturedProjects onSelectProject={setSelectedProject} />
       <ContactSection />
 
       <CaseStudyDrawer
@@ -43,6 +55,18 @@ export default function Home() {
       />
 
       <DevTerminal isOpen={isTerminalOpen} onClose={() => setIsTerminalOpen(false)} />
+
+      <button
+        onClick={scrollToTop}
+        className={`fixed bottom-8 right-8 z-50 flex size-12 items-center justify-center rounded-full bg-accent text-white shadow-lg transition-all duration-300 hover:scale-110 active:scale-95 ${
+          showScrollTop ? "translate-y-0 opacity-100" : "translate-y-16 opacity-0 pointer-events-none"
+        }`}
+        aria-label="Scroll to top"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256">
+          <path fill="currentColor" d="M213.66,165.66a8,8,0,0,1-11.32,0L128,91.31,53.66,165.66a8,8,0,0,1-11.32-11.32l80-80a8,8,0,0,1,11.32,0l80,80A8,8,0,0,1,213.66,165.66Z" />
+        </svg>
+      </button>
     </main>
   );
 }

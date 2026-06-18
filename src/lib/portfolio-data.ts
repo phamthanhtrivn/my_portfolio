@@ -35,13 +35,15 @@ export const profile = {
   location: "Viet Nam",
   github: "https://github.com/phamthanhtrivn",
   linkedin: "https://linkedin.com/in/phamthanhtri",
-  email: "phamthanhtrivn@gmail.com",
+  email: "phamthanhtri0712@gmail.com",
   headline:
     "I build production-grade systems across backend services, full-stack apps, realtime flows, databases, and deployment pipelines.",
   intro:
-    "My focus centers on full-stack web products with real operational requirements: security, role-based workflows, integrated checkouts, live websocket states, containerized orchestrations, and automated CI/CD workflows. I design readable, testable, and robust systems that scale.",
-  availability: "Available for backend and full-stack software engineering roles",
-  contactNote: "Feel free to reach out via LinkedIn, Email, or inspect my repositories directly.",
+    "Building scalable web applications with Spring Boot, React, Kafka, Redis, Docker, and AWS. Passionate about microservices architecture, real-time systems, cloud-native development, and AI-powered solutions.",
+  availability:
+    "Available for backend and full-stack software engineering roles",
+  contactNote:
+    "Feel free to reach out via LinkedIn, Email, or inspect my repositories directly.",
   links: [
     {
       label: "GitHub",
@@ -308,7 +310,13 @@ export const projects: Project[] = [
       "Create instant meetings, configure calendar meetings, and fetch audio/video recordings.",
       "Room dashboard controls for microphone, camera, desktop sharing, and attendee lists.",
     ],
-    stack: ["Next.js", "TypeScript", "Clerk Auth", "Stream Video SDK", "Tailwind CSS"],
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Clerk Auth",
+      "Stream Video SDK",
+      "Tailwind CSS",
+    ],
     architecture: [
       "Next.js App Router structure organizing user credentials and active conference states.",
       "Integration with Stream SDK, removing need for custom WebRTC server maintenance.",
@@ -418,14 +426,16 @@ export const experience: TimelineItem[] = [
     period: "2023 - Present",
     role: "Full-Stack Software Engineer (Freelance)",
     company: "Self-employed",
-    description: "Designed and built custom web and mobile applications for clients. Leveraged NestJS, Spring Boot, React, and React Native to deliver product-grade solutions, including secure reservation gateways, real-time booking flows, and microservices orchestration.",
+    description:
+      "Designed and built custom web and mobile applications for clients. Leveraged NestJS, Spring Boot, React, and React Native to deliver product-grade solutions, including secure reservation gateways, real-time booking flows, and microservices orchestration.",
   },
   {
     period: "2022 - 2023",
     role: "Backend Software Engineer Intern",
     company: "Tech Development Corp",
-    description: "Contributed to Spring Boot microservices development, optimized SQL database queries (MySQL/PostgreSQL), and integrated Redis caching layers to decrease API latency by 35%. Worked in an Agile environment and automated test coverage.",
-  }
+    description:
+      "Contributed to Spring Boot microservices development, optimized SQL database queries (MySQL/PostgreSQL), and integrated Redis caching layers to decrease API latency by 35%. Worked in an Agile environment and automated test coverage.",
+  },
 ];
 
 export const education: TimelineItem[] = [
@@ -433,6 +443,7 @@ export const education: TimelineItem[] = [
     period: "2020 - 2024",
     role: "Bachelor of Science in Software Engineering",
     company: "University of Information Technology",
-    description: "Focused on core computer science fundamentals, database design, enterprise software architectures, and distributed systems. Participated in programming contests and specialized research on AI integrations.",
-  }
+    description:
+      "Focused on core computer science fundamentals, database design, enterprise software architectures, and distributed systems. Participated in programming contests and specialized research on AI integrations.",
+  },
 ];
