@@ -1,36 +1,22 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<img src="https://capsule-render.vercel.app/api?type=waving&amp;color=timeGradient&amp;height=250&amp;section=header&amp;text=Hi%20there,%20I'm%20Thanh%20Tri!%20👋&amp;fontSize=50&amp;fontAlignY=35" width="100" />![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=24&pause=1000&color=3B82F6&center=true&vCenter=true&width=600&lines=Backend+%2F+Fullstack+Developer+Intern;Software+Engineering+Student;Java+%26+Spring+Boot+Enthusiast;Building+Scalable+Web+Apps)📍 Thu Duc, Ho Chi Minh City, Vietnam 🇻🇳 \
+🎓 Software Engineering @ Industrial University of Ho Chi Minh City (GPA: 3.46/4.0) \
+📧 [phamthanhtri0712@gmail.com](mailto:phamthanhtri0712@gmail.com)
 
-## Getting Started
+![Portfolio](https://img.shields.io/badge/Portfolio-2563EB?style=for-the-badge&logo=vercel&logoColor=white)![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)### 👨‍💻 About Me
 
-First, run the development server:
+Backend-focused Software Engineering student with hands-on experience developing web applications using Java and Spring Boot. Proven capability in designing database schemas, UML diagrams, and building both Monolithic and Microservices-based architectures through real-world projects. Familiar with Docker, GitHub Actions (CI/CD), and deploying applications on cloud platforms (AWS).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 🛠️ Tech Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![](https://skillicons.dev/icons?i=java,js,ts,spring,nodejs,express,nestjs&perline=10)![](https://skillicons.dev/icons?i=react,redux,tailwind,html,css&perline=10)![](https://skillicons.dev/icons?i=mysql,postgres,mongodb,redis,kafka&perline=10)![](https://skillicons.dev/icons?i=docker,git,github,githubactions,aws,nginx,linux&perline=10)**Core Technologies & Tools:**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Programming Languages:** Java, JavaScript, TypeScript
+- **Backend:** Spring Boot, Spring Security, Spring Data JPA, RESTful APIs, Microservices, JWT, OAuth2, Redis, Kafka, Node.js, Express.js, NestJS
+- **Frontend:** React.js, Redux Toolkit, React Query, Tailwind CSS, Shadcn UI, HTML5, CSS3
+- **Databases:** MySQL, MariaDB, PostgreSQL, pgvector, MongoDB
+- **DevOps & Cloud:** Docker, Git, GitHub, GitHub Actions, AWS EC2, Nginx, Linux
+- **AI & Integration:** Spring AI, RAG, Cloudinary, VNPay, MoMo
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 📈 GitHub Stats
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=phamthanhtrivn&theme=tokyonight&hide_border=true&background=0D1117)
