@@ -10,7 +10,7 @@ type HeaderProps = {
 };
 
 export function Header({ navItems, onOpenTerminal }: HeaderProps) {
-  const [activeSection, setActiveSection] = useState<string>("#top");
+  const [activeSection, setActiveSection] = useState<string>("#home");
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -39,7 +39,7 @@ export function Header({ navItems, onOpenTerminal }: HeaderProps) {
     <header className="sticky top-0 z-40 glass-header">
       <nav className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a
-          href="#top"
+          href="#home"
           className="flex items-center gap-3 font-bold text-foreground"
         >
           <span className="grid size-9 place-items-center rounded-lg border border-line bg-surface text-sm font-semibold shadow-sm text-accent">

@@ -101,3 +101,51 @@ export function getTechIconName(tech: string): IconName {
   
   return "code";
 }
+
+// Helper to map tech stack string to thesvg.org slug
+export function getTheSvgUrl(tech: string): string | null {
+  const t = tech.toLowerCase().replace(/[\s\.\-\/\(\)]/g, "");
+  
+  const map: Record<string, string> = {
+    java: "java",
+    javascript: "javascript",
+    typescript: "typescript",
+    springboot: "spring-boot",
+    springsecurity: "spring",
+    springdatajpa: "spring",
+    springai: "spring",
+    redis: "redis",
+    kafka: "kafka",
+    nodejs: "nodedotjs",
+    expressjs: "express",
+    nestjs: "nestjs",
+    reactjs: "react",
+    reduxtoolkit: "redux",
+    reactquery: "reactquery",
+    tailwindcss: "tailwind-css",
+    shadcnui: "shadcn-ui",
+    html5: "html5",
+    css3: "css3",
+    mysql: "mysql",
+    mariadb: "mariadb",
+    postgresql: "postgresql",
+    pgvector: "postgresql",
+    mongodb: "mongodb",
+    docker: "docker",
+    git: "git",
+    github: "github",
+    githubactions: "github-actions",
+    awsec2: "aws",
+    nginx: "nginx",
+    linux: "linux",
+    jwt: "jwt",
+    oauth2: "oauth",
+    cloudinary: "cloudinary"
+  };
+
+  const slug = map[t];
+  if (slug) {
+    return `https://thesvg.org/icons/${slug}/default.svg`;
+  }
+  return null;
+}

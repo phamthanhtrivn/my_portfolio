@@ -16,7 +16,7 @@ const monoFont = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://phamthanhtri.dev"),
+  metadataBase: new URL("https://phamthanhtrivn.vercel.app"),
   title: {
     default: "Pham Thanh Tri - Backend / Full-Stack Developer",
     template: "%s | Pham Thanh Tri",
@@ -34,20 +34,22 @@ export const metadata: Metadata = {
     "TypeScript",
     "Docker",
   ],
-  authors: [{ name: "Pham Thanh Tri", url: "https://github.com/phamthanhtrivn" }],
+  authors: [
+    { name: "Pham Thanh Tri", url: "https://github.com/phamthanhtrivn" },
+  ],
   creator: "Pham Thanh Tri",
   openGraph: {
     title: "Pham Thanh Tri - Backend / Full-Stack Developer",
     description:
       "Product-focused backend and full-stack portfolio covering microservices, realtime systems, payments, databases, Docker, CI/CD, web, and mobile.",
-    url: "https://phamthanhtri.dev",
+    url: "https://phamthanhtrivn.vercel.app",
     siteName: "Pham Thanh Tri Portfolio",
     images: [
       {
-        url: "https://github.com/phamthanhtrivn.png",
+        url: "https://res.cloudinary.com/dcwauocnz/image/upload/v1781706758/avatar_sgqnrx.jpg",
         width: 460,
         height: 460,
-        alt: "Pham Thanh Tri GitHub avatar",
+        alt: "Pham Thanh Tri avatar",
       },
     ],
     locale: "en_US",
@@ -58,7 +60,14 @@ export const metadata: Metadata = {
     title: "Pham Thanh Tri - Backend / Full-Stack Developer",
     description:
       "Backend and full-stack portfolio featuring Spring Boot, NestJS, React, Next.js, realtime systems, databases, and deployment pipelines.",
-    images: ["https://github.com/phamthanhtrivn.png"],
+    images: [
+      "https://res.cloudinary.com/dcwauocnz/image/upload/v1781706758/avatar_sgqnrx.jpg",
+    ],
+  },
+  icons: {
+    icon: "/avatar.jpg",
+    shortcut: "/avatar.jpg",
+    apple: "/avatar.jpg",
   },
 };
 
