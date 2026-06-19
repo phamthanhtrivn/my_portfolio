@@ -12,7 +12,7 @@ export function Hero() {
 
   return (
     <section
-      id="top"
+      id="home"
       className="relative isolate mx-auto flex min-h-[calc(100dvh-4rem)] w-full max-w-7xl items-center overflow-hidden px-4 py-12 sm:px-6 lg:px-8 lg:py-16"
     >
       <HeroAtmosphere />
