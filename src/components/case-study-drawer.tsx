@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { PortfolioIcon, getTechIconName } from "./icon";
+import { PortfolioIcon, getTechIconName, getTheSvgUrl } from "./icon";
 import type { Project } from "@/lib/portfolio-data";
 
 type CaseStudyDrawerProps = {
@@ -243,6 +243,30 @@ function ArchitectureTab({ project }: { project: Project }) {
   );
 }
 
+function DrawerTechLogo({ item }: { item: string }) {
+  const [error, setError] = useState(false);
+  const svgUrl = getTheSvgUrl(item);
+
+  if (svgUrl && !error) {
+    return (
+      <img
+        src={svgUrl}
+        alt={item}
+        width={14}
+        height={14}
+        onError={() => setError(true)}
+      />
+    );
+  }
+  return (
+    <PortfolioIcon
+      name={getTechIconName(item)}
+      size={14}
+      className="text-accent"
+    />
+  );
+}
+
 function TechTab({ project }: { project: Project }) {
   return (
     <div className="space-y-6">
@@ -256,11 +280,7 @@ function TechTab({ project }: { project: Project }) {
               key={item}
               className="inline-flex items-center gap-1.5 rounded-lg border border-line bg-surface px-3 py-1.5 text-sm font-semibold text-muted shadow-sm"
             >
-              <PortfolioIcon
-                name={getTechIconName(item)}
-                size={14}
-                className="text-accent"
-              />
+              <DrawerTechLogo item={item} />
               {item}
             </span>
           ))}
@@ -1323,7 +1343,9 @@ function renderArchitectureSVG(projectName: string) {
 
   return (
     <div className="flex h-48 items-center justify-center rounded-xl bg-surface">
-      <p className="text-sm text-muted">Diagram unavailable for this project.</p>
+      <p className="text-sm text-muted">
+        Diagram unavailable for this project.
+      </p>
     </div>
   );
 }

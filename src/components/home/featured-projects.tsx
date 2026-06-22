@@ -1,6 +1,11 @@
 "use client";
 
-import { PortfolioIcon, getTechIconName } from "@/components/icon";
+import { useState } from "react";
+import {
+  PortfolioIcon,
+  getTechIconName,
+  getTheSvgUrl,
+} from "@/components/icon";
 import { Reveal } from "@/components/reveal";
 import { projects } from "@/lib/portfolio-data";
 import type { Project } from "@/lib/portfolio-data";
@@ -45,6 +50,30 @@ export function FeaturedProjects({ onSelectProject }: FeaturedProjectsProps) {
         </div>
       </div>
     </section>
+  );
+}
+
+function ProjectTechLogo({ item }: { item: string }) {
+  const [error, setError] = useState(false);
+  const svgUrl = getTheSvgUrl(item);
+
+  if (svgUrl && !error) {
+    return (
+      <img
+        src={svgUrl}
+        alt={item}
+        width={12}
+        height={12}
+        onError={() => setError(true)}
+      />
+    );
+  }
+  return (
+    <PortfolioIcon
+      name={getTechIconName(item)}
+      size={12}
+      className="text-accent"
+    />
   );
 }
 
@@ -100,11 +129,7 @@ function ProjectShowcaseCard({
               key={item}
               className="inline-flex items-center gap-1.5 rounded-full border border-line bg-background/60 px-3 py-1.5 text-xs font-medium text-muted transition group-hover:border-accent/30 group-hover:text-foreground"
             >
-              <PortfolioIcon
-                name={getTechIconName(item)}
-                size={11}
-                className="text-accent"
-              />
+              <ProjectTechLogo item={item} />
               {item}
             </span>
           ))}
